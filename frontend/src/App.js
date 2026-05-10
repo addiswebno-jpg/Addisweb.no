@@ -48,6 +48,7 @@ const Navbar = () => (
           <a href="#prosess" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Prosess</a>
           <a href="#tjenester" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Hvem vi hjelper</a>
           <a href="#portefolje" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Portefølje</a>
+          <a href="#om-meg" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Om Meg</a>
           <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">FAQ</a>
         </div>
         <div>
@@ -250,6 +251,66 @@ const Portfolio = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
+const About = () => (
+  <section id="om-meg" className="py-24 bg-white overflow-hidden border-t border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+          className="relative"
+        >
+          <div className="absolute inset-0 bg-gray-100 rounded-3xl transform translate-x-4 translate-y-4"></div>
+          <img 
+            src="https://customer-assets.emergentagent.com/job_web-portfolio-no/artifacts/zzdngync_Natnael%20profilbilde.jpeg" 
+            alt="Natnael Seifo - Grunnlegger av Addis Web" 
+            className="relative z-10 rounded-3xl shadow-xl w-full object-cover max-h-[600px]"
+          />
+        </motion.div>
+        
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <div className="inline-flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full text-sm font-medium text-gray-600 mb-6 border border-gray-200">
+            <span>Personlig oppfølging</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            Hei, jeg er Natnael.
+          </h2>
+          <div className="space-y-6 text-lg text-gray-600">
+            <p>
+              Jeg er grunnleggeren av Addis Web. De siste to årene har jeg spesialisert meg på å bygge skreddersydde, moderne nettsider og nettbutikker for bedrifter som ønsker å skille seg ut på nett.
+            </p>
+            <p>
+              Min tilnærming er enkel: <strong>Moderne design, null teknisk rot, og fullt fokus på resultater.</strong> Jeg mener at en nettside ikke bare skal se fantastisk ut – den skal være et effektivt verktøy som tiltrekker kunder og skaper vekst for din bedrift.
+            </p>
+            <p>
+              Som din dedikerte partner, håndterer jeg hele prosessen fra første skisse til lansering. Målet mitt er å gjøre det så enkelt og smertefritt som mulig for deg å få en premium tilstedeværelse på nett.
+            </p>
+          </div>
+          
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+             <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold text-xl">
+                  N
+                </div>
+                <div>
+                  <div className="font-bold text-gray-900">Natnael Seifo</div>
+                  <div className="text-sm text-gray-500">Grunnlegger, Addis Web</div>
+                </div>
+             </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
+
             <motion.a 
               href={project.url}
               target="_blank"
@@ -372,6 +433,7 @@ const LandingPage = () => {
         <Process />
         <Services />
         <Portfolio />
+        <About />
         <FaqSection />
       </main>
       <Footer />
