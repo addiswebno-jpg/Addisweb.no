@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
+import { getCalApi } from "@calcom/embed-react";
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -31,8 +32,6 @@ import {
 } from "./components/ui/carousel";
 import { DynamicIslandTOC } from "./components/ui/dynamic-island-toc";
 
-const CAL_URL = "https://cal.com/natnael-seifo-uhknjq/netttside-utvikling-demo";
-
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -60,8 +59,10 @@ const Navbar = () => (
         </div>
         <div>
           <Button 
-            onClick={() => window.open(CAL_URL, "_blank")}
             className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-5 sm:px-6 shadow-sm"
+            data-cal-namespace="netttside-utvikling-demo"
+            data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
           >
             <span className="hidden sm:inline">Book en samtale</span>
             <span className="sm:hidden">Book samtale</span>
@@ -99,7 +100,9 @@ const Hero = () => (
           <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              onClick={() => window.open(CAL_URL, "_blank")}
+              data-cal-namespace="netttside-utvikling-demo"
+              data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               className="relative overflow-hidden bg-gray-900 hover:bg-gray-800 text-white rounded-full h-14 px-8 text-base shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2 group w-full sm:w-auto border-2 border-gray-900"
             >
               <div className="absolute inset-0 w-full h-full bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
@@ -543,7 +546,9 @@ const Footer = () => (
         </p>
         <Button 
           size="lg" 
-          onClick={() => window.open(CAL_URL, "_blank")}
+          data-cal-namespace="netttside-utvikling-demo"
+          data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+          data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
           className="relative overflow-hidden bg-white hover:bg-gray-100 text-gray-900 rounded-full h-14 px-10 text-lg font-bold shadow-xl mb-12 hover:scale-105 transition-transform group"
         >
           <span className="relative z-10">Book din gratis demo</span>
@@ -572,6 +577,17 @@ const Footer = () => (
 );
 
 const LandingPage = () => {
+  useEffect(() => {
+    (async function () {
+      try {
+        const cal = await getCalApi({"namespace":"netttside-utvikling-demo"});
+        cal("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#111827"},"dark":{"cal-brand":"#FFFFFF"}},"hideEventTypeDetails":false,"layout":"month_view"});
+      } catch (e) {
+        console.error("Failed to load Cal embed:", e);
+      }
+    })();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white selection:bg-gray-900 selection:text-white font-sans overflow-x-hidden">
       <DynamicIslandTOC />
