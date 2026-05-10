@@ -54,14 +54,15 @@ const Navbar = () => (
           <div className="bg-gray-900 text-white p-2 rounded-xl shadow-sm">
             <Layout className="w-5 h-5" />
           </div>
-          <span className="text-2xl font-extrabold text-gray-900 tracking-tight">Addis Web</span>
+          <span className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">Addis Web</span>
         </div>
         <div>
           <Button 
             onClick={() => window.open(CAL_URL, "_blank")}
-            className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6 shadow-sm"
+            className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-5 sm:px-6 shadow-sm"
           >
-            Book en samtale
+            <span className="hidden sm:inline">Book en samtale</span>
+            <span className="sm:hidden">Book samtale</span>
           </Button>
         </div>
       </div>
@@ -70,9 +71,9 @@ const Navbar = () => (
 );
 
 const Hero = () => (
-  <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gray-50/50">
+  <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gray-50/50 min-h-[90vh] flex items-center">
     <div data-toc data-toc-title="Hjem" data-toc-depth="1" id="hjem" className="absolute top-0"></div>
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <motion.div 
           initial="hidden"
@@ -80,16 +81,16 @@ const Hero = () => (
           variants={staggerContainer}
           className="max-w-2xl"
         >
-          <motion.div variants={fadeIn} className="inline-flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full text-sm font-medium text-gray-800 mb-6 border border-gray-200">
+          <motion.div variants={fadeIn} className="inline-flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full text-xs sm:text-sm font-medium text-gray-800 mb-6 border border-gray-200">
             <span className="flex h-2 w-2 rounded-full bg-green-500"></span>
             <span>Tar inn 3 nye prosjekter denne måneden</span>
           </motion.div>
           
-          <motion.h1 variants={fadeIn} className="text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+          <motion.h1 variants={fadeIn} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
             Vi bygger din nye nettside <span className="text-gray-400">helt gratis.</span>
           </motion.h1>
           
-          <motion.p variants={fadeIn} className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <motion.p variants={fadeIn} className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
             En 100 % risikofri løsning. Liker du ikke resultatet? Da betaler du ingenting. Liker du den? Betal en engangssum på <strong className="text-gray-900 font-semibold">10 000 kr</strong> – og nettsiden er din.
           </motion.p>
           
@@ -97,7 +98,7 @@ const Hero = () => (
             <Button 
               size="lg" 
               onClick={() => window.open(CAL_URL, "_blank")}
-              className="bg-gray-900 hover:bg-gray-800 text-white rounded-full h-14 px-8 text-base shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group"
+              className="bg-gray-900 hover:bg-gray-800 text-white rounded-full h-14 px-8 text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group w-full sm:w-auto"
             >
               Få din gratis skisse
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -106,15 +107,15 @@ const Hero = () => (
               size="lg" 
               variant="outline"
               onClick={() => document.getElementById("portefolje")?.scrollIntoView({ behavior: 'smooth' })}
-              className="rounded-full h-14 px-8 text-base border-gray-300 hover:bg-gray-50"
+              className="rounded-full h-14 px-8 text-base border-gray-300 hover:bg-gray-50 w-full sm:w-auto justify-center"
             >
               Se vårt arbeid
             </Button>
           </motion.div>
           
-          <motion.div variants={fadeIn} className="mt-8 flex items-center gap-4 text-sm text-gray-500 font-medium">
-            <div className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen bindingstid</div>
-            <div className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen skjulte kostnader</div>
+          <motion.div variants={fadeIn} className="mt-8 flex flex-wrap items-center gap-4 text-sm text-gray-500 font-medium">
+            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen bindingstid</div>
+            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen skjulte kostnader</div>
           </motion.div>
         </motion.div>
         
@@ -122,13 +123,15 @@ const Hero = () => (
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative lg:h-[600px] flex items-center justify-center"
+          className="relative lg:h-[600px] flex items-center justify-center mt-10 lg:mt-0"
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-gray-100 to-gray-50 rounded-3xl transform -rotate-3 border border-gray-200"></div>
           <img 
             src="https://images.unsplash.com/photo-1549399905-5d1bad747576?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzc4NDE0OTg0fDA&ixlib=rb-4.1.0&q=85" 
-            alt="Modern Web Design Workspace" 
-            className="relative z-10 rounded-2xl shadow-2xl object-cover h-[500px] w-full max-w-lg mx-auto transform hover:scale-[1.02] transition-transform duration-500"
+            alt="Moderne kontormiljø for webutvikling" 
+            className="relative z-10 rounded-2xl shadow-2xl object-cover h-[400px] sm:h-[500px] w-full max-w-lg mx-auto transform hover:scale-[1.02] transition-transform duration-500"
+            fetchPriority="high"
+            loading="eager"
           />
         </motion.div>
       </div>
@@ -137,11 +140,11 @@ const Hero = () => (
 );
 
 const Process = () => (
-  <section id="prosess" className="py-24 bg-white">
+  <section id="prosess" className="py-24 bg-white relative">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h2 data-toc data-toc-title="Prosess" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Slik fungerer det</h2>
-        <p className="text-lg text-gray-600">En enkel, smertefri og risikofri prosess for å få din drømmenettside.</p>
+        <p className="text-lg text-gray-600 px-4">En enkel, smertefri og risikofri prosess for å få din drømmenettside.</p>
       </div>
       
       <div className="grid md:grid-cols-3 gap-8">
@@ -187,7 +190,7 @@ const Process = () => (
 );
 
 const Services = () => (
-  <section id="tjenester" className="py-24 bg-gray-900 text-white">
+  <section id="tjenester" className="py-24 bg-gray-900 text-white relative">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <motion.div 
@@ -197,7 +200,7 @@ const Services = () => (
           variants={fadeIn}
         >
           <h2 data-toc data-toc-title="Hvem vi hjelper" data-toc-depth="1" className="text-3xl md:text-5xl font-bold mb-6 leading-tight">Nettsider skreddersydd for din bransje.</h2>
-          <p className="text-xl text-gray-400 mb-8">Vi forstår at en frisørsalong har andre behov enn et rørleggerfirma. Derfor designer vi alltid med din spesifikke målgruppe i tankene.</p>
+          <p className="text-lg md:text-xl text-gray-400 mb-8">Vi forstår at en frisørsalong har andre behov enn et rørleggerfirma. Derfor designer vi alltid med din spesifikke målgruppe i tankene.</p>
           
           <ul className="space-y-6">
             <li className="flex items-start gap-4">
@@ -224,13 +227,15 @@ const Services = () => (
         <div className="grid grid-cols-2 gap-4">
           <img 
             src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxzYWxvbiUyMGludGVyaW9yfGVufDB8fHx8MTc3ODM5NTQzOHww&ixlib=rb-4.1.0&q=85" 
-            alt="Moderne Salong" 
-            className="rounded-2xl h-64 w-full object-cover transform translate-y-8"
+            alt="Moderne Salong for skjønnhet og velvære" 
+            className="rounded-2xl h-48 md:h-64 w-full object-cover transform translate-y-8"
+            loading="lazy"
           />
           <img 
             src="https://images.unsplash.com/photo-1659353588229-6870b3b25800?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBwbHVtYmVyfGVufDB8fHx8MTc3ODQxNDk4NHww&ixlib=rb-4.1.0&q=85" 
-            alt="Profesjonell Håndverker" 
-            className="rounded-2xl h-64 w-full object-cover"
+            alt="Profesjonell Håndverker på jobb" 
+            className="rounded-2xl h-48 md:h-64 w-full object-cover"
+            loading="lazy"
           />
         </div>
       </div>
@@ -252,16 +257,16 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portefolje" className="py-24 bg-gray-50 overflow-hidden">
+    <section id="portefolje" className="py-24 bg-gray-50 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
             <h2 data-toc data-toc-title="Portefølje" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
-            <p className="text-lg text-gray-600">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
+            <p className="text-lg text-gray-600 px-4">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
           </motion.div>
         </div>
         
-        <div className="relative px-6 md:px-12">
+        <div className="relative px-0 sm:px-6 md:px-12">
           <Carousel
             plugins={[plugin.current]}
             opts={{ align: "start", loop: true }}
@@ -282,10 +287,10 @@ const Portfolio = () => {
                     variants={fadeIn}
                     className="group block rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 h-full"
                   >
-                    <div className="h-64 overflow-hidden relative bg-gray-100 flex items-center justify-center">
+                    <div className="h-56 sm:h-64 overflow-hidden relative bg-gray-100 flex items-center justify-center">
                       <img 
                         src={`https://s0.wp.com/mshots/v1/${encodeURIComponent(project.url)}?w=800`} 
-                        alt={project.name}
+                        alt={`Nettside preview for ${project.name}`}
                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         onError={(e) => {
@@ -296,12 +301,12 @@ const Portfolio = () => {
                       <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
                     </div>
                     <div className="p-6 flex items-center justify-between">
-                      <div>
-                        <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
-                        {project.owner && <p className="text-xs font-medium text-gray-400 mt-0.5">Eies av {project.owner}</p>}
+                      <div className="max-w-[80%]">
+                        <h3 className="font-bold text-gray-900 text-lg truncate">{project.name}</h3>
+                        {project.owner && <p className="text-xs font-medium text-gray-400 mt-0.5 truncate">Eies av {project.owner}</p>}
                         <p className="text-sm text-gray-500 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
                       </div>
-                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-900 group-hover:text-white transition-colors">
                         <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -309,8 +314,8 @@ const Portfolio = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-6" />
-            <CarouselNext className="hidden md:flex -right-6" />
+            <CarouselPrevious className="hidden md:flex -left-6" aria-label="Forrige prosjekt" />
+            <CarouselNext className="hidden md:flex -right-6" aria-label="Neste prosjekt" />
           </Carousel>
         </div>
       </div>
@@ -341,12 +346,12 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-900 text-white overflow-hidden">
+    <section className="py-24 bg-gray-900 text-white overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
             <h2 data-toc data-toc-title="Referanser" data-toc-depth="1" className="text-3xl md:text-4xl font-bold mb-4">Hva kundene våre sier</h2>
-            <p className="text-lg text-gray-400">Vi er stolte av å bygge løsninger som skaper ekte verdi for våre kunder.</p>
+            <p className="text-lg text-gray-400 px-4">Vi er stolte av å bygge løsninger som skaper ekte verdi for våre kunder.</p>
           </motion.div>
         </div>
         
@@ -360,7 +365,7 @@ const Testimonials = () => {
               transition={{ delay: idx * 0.15, duration: 0.6 }}
               className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-sm hover:bg-white/10 transition-colors duration-300"
             >
-              <div className="flex gap-1 mb-6">
+              <div className="flex gap-1 mb-6" aria-label={`Vurdering: ${t.rating} av 5 stjerner`}>
                 {[...Array(t.rating)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
                 ))}
@@ -384,7 +389,7 @@ const Testimonials = () => {
 };
 
 const About = () => (
-  <section id="om-meg" className="py-24 bg-white overflow-hidden border-t border-gray-100">
+  <section id="om-meg" className="py-24 bg-white overflow-hidden border-t border-gray-100 relative">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <motion.div 
@@ -399,6 +404,7 @@ const About = () => (
             src="https://customer-assets.emergentagent.com/job_web-portfolio-no/artifacts/zzdngync_Natnael%20profilbilde.jpeg" 
             alt="Natnael Seifo - Grunnlegger av Addis Web" 
             className="relative z-10 rounded-3xl shadow-xl w-full object-cover max-h-[600px] hover:scale-[1.02] transition-transform duration-500"
+            loading="lazy"
           />
         </motion.div>
         
@@ -444,12 +450,12 @@ const About = () => (
 );
 
 const FaqSection = () => (
-  <section id="faq" className="py-24 bg-gray-50 border-t border-gray-100">
+  <section id="faq" className="py-24 bg-gray-50 border-t border-gray-100 relative">
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
           <h2 data-toc data-toc-title="FAQ" data-toc-depth="1" className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
-          <p className="text-lg text-gray-600">Svar på det meste du lurer på rundt vår risikofrie modell.</p>
+          <p className="text-lg text-gray-600 px-4">Svar på det meste du lurer på rundt vår risikofrie modell.</p>
         </motion.div>
       </div>
       
@@ -500,12 +506,12 @@ const FaqSection = () => (
 );
 
 const Footer = () => (
-  <footer className="bg-gray-950 text-white py-20 relative overflow-hidden">
+  <footer className="bg-gray-950 text-white pt-20 pb-32 md:pb-20 relative overflow-hidden">
     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-        <h2 className="text-3xl md:text-5xl font-bold mb-8">Klar for en ny, profesjonell nettside?</h2>
-        <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold mb-8 px-4">Klar for en ny, profesjonell nettside?</h2>
+        <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto px-4">
           Book en kort, uforpliktende prat i dag, og la oss begynne på din gratis skisse.
         </p>
         <Button 
@@ -517,20 +523,20 @@ const Footer = () => (
         </Button>
       </motion.div>
       
-      <div className="border-t border-gray-800 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-        <div className="font-bold text-xl text-white mb-4 md:mb-0 flex items-center gap-2 justify-center">
+      <div className="border-t border-gray-800 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-6 md:gap-0">
+        <div className="font-bold text-xl text-white flex items-center gap-2 justify-center">
           <div className="bg-white/10 p-1.5 rounded-lg">
             <Layout className="w-4 h-4 text-white" />
           </div>
           Addis Web
         </div>
         <div className="flex items-center gap-2">
-          <Mail className="w-4 h-4" />
-          <a href="mailto:natnael@addisweb.no" className="hover:text-white transition-colors">
+          <Mail className="w-4 h-4" aria-hidden="true" />
+          <a href="mailto:natnael@addisweb.no" className="hover:text-white transition-colors" aria-label="Send e-post til natnael@addisweb.no">
             natnael@addisweb.no
           </a>
         </div>
-        <div className="mt-4 md:mt-0">
+        <div>
           &copy; {new Date().getFullYear()} Addis Web. Alle rettigheter reservert.
         </div>
       </div>
@@ -540,7 +546,7 @@ const Footer = () => (
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-white selection:bg-gray-900 selection:text-white font-sans">
+    <div className="min-h-screen bg-white selection:bg-gray-900 selection:text-white font-sans overflow-x-hidden">
       <DynamicIslandTOC />
       <Navbar />
       <main>

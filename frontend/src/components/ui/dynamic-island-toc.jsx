@@ -146,7 +146,7 @@ export function DynamicIslandTOC({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="fixed bottom-[30px] left-1/2 z-[9999] flex -translate-x-1/2 flex-col items-center"
+        className="fixed bottom-[max(env(safe-area-inset-bottom,24px),24px)] left-1/2 z-[9999] flex -translate-x-1/2 flex-col items-center"
       >
         <motion.div
           onClick={() => {
@@ -211,6 +211,7 @@ export function DynamicIslandTOC({
                   setIsExpanded(false);
                 }}
                 className="text-muted-foreground transition-colors hover:text-foreground"
+                aria-label="Lukk meny"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -238,6 +239,7 @@ export function DynamicIslandTOC({
                         setIsExpanded(false);
                       }}
                       style={{ paddingLeft: `${paddingLeft}px` }}
+                      aria-label={`Gå til ${h.text}`}
                       className={cn(
                         "group flex w-full shrink-0 cursor-pointer items-center rounded-lg border-none py-2 pr-3 text-left text-sm transition-all duration-300 ease-out",
                         isActive && "bg-foreground/10 font-medium text-foreground",
