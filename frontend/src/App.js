@@ -350,7 +350,7 @@ const Testimonials = () => {
     {
       name: "Morten",
       role: "Eier, Jakobsen Rør",
-      content: "Addis Web leverte langt over forventning. Nettsiden vår ser utrolig profesjonell ut, og vi har allerede fått flere henvendelser via kontaktskjemaet. Anbefales på det sterkeste!",
+      content: "Addis Web leverte langt over forventning. Nettsiden vår ser utrolig profesjonell ut, og det er nå kjempeenkelt for nye kunder å finne telefonnummeret vårt og ringe oss direkte. Anbefales på det sterkeste!",
       rating: 5
     },
     {
@@ -362,7 +362,7 @@ const Testimonials = () => {
     {
       name: "Sara",
       role: "Eier, Lume Wellness",
-      content: "Jeg trengte en stilren nettside for salongen min som også gjorde booking enkelt. Natnael forstod nøyaktig hva jeg var ute etter. Utrolig smidig prosess og null stress for meg.",
+      content: "Jeg trengte en rask og stilren nettbutikk for kosttilskuddene våre. Natnael forstod nøyaktig hva jeg var ute etter, og kjøpsopplevelsen er nå fantastisk. Utrolig smidig prosess og null stress for meg.",
       rating: 5
     }
   ];
