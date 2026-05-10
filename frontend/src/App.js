@@ -267,9 +267,9 @@ const Portfolio = () => {
   );
 
   const projects = [
-    { name: "Jakobsen Rør", owner: "Morten", url: "https://jakobsenror.no/", fallback: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80" },
-    { name: "Loqui Events", owner: "Sandra", url: "https://www.loquievents.no/", fallback: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80" },
-    { name: "Lume Wellness", owner: "Sara", url: "https://www.lumewellness.no/", fallback: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80" },
+    { name: "Jakobsen Rør", url: "https://jakobsenror.no/", fallback: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80" },
+    { name: "Loqui Events", url: "https://www.loquievents.no/", fallback: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80" },
+    { name: "Lume Wellness", url: "https://www.lumewellness.no/", fallback: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80" },
     { name: "Norsk Frøhandel", url: "https://norskfrohandel.vercel.app/", fallback: "https://images.unsplash.com/photo-1585320806297-9794b3e4ce88?auto=format&fit=crop&w=800&q=80" },
     { name: "Companion Agent", url: "https://www.companionagent.no/", fallback: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=800&q=80" }
   ];
@@ -325,7 +325,6 @@ const Portfolio = () => {
                     <div className="p-6 flex items-center justify-between flex-1">
                       <div className="max-w-[80%]">
                         <h3 className="font-bold text-gray-900 text-lg truncate group-hover:text-blue-600 transition-colors">{project.name}</h3>
-                        {project.owner && <p className="text-xs font-semibold text-gray-500 mt-0.5 truncate uppercase tracking-wider">Eies av {project.owner}</p>}
                         <p className="text-sm text-gray-400 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
                       </div>
                       <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-900 group-hover:text-white transition-colors shadow-sm">
