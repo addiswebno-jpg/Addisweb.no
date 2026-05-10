@@ -10,7 +10,8 @@ import {
   Scissors, 
   Wrench,
   Mail,
-  Star
+  Star,
+  Layout
 } from "lucide-react";
 import { Button } from "./components/ui/button";
 import {
@@ -26,6 +27,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./components/ui/carousel";
+import { DynamicIslandTOC } from "./components/ui/dynamic-island-toc";
 
 const CAL_URL = "https://cal.com/natnael-seifo-uhknjq/netttside-utvikling-demo";
 
@@ -48,15 +50,11 @@ const Navbar = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center h-20">
-        <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-          <span className="text-2xl font-bold text-gray-900 tracking-tight">Addis Web</span>
-        </div>
-        <div className="hidden md:flex space-x-8 items-center">
-          <a href="#prosess" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Prosess</a>
-          <a href="#tjenester" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Hvem vi hjelper</a>
-          <a href="#portefolje" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Portefølje</a>
-          <a href="#om-meg" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Om Meg</a>
-          <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">FAQ</a>
+        <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => window.scrollTo(0,0)}>
+          <div className="bg-gray-900 text-white p-2 rounded-xl shadow-sm">
+            <Layout className="w-5 h-5" />
+          </div>
+          <span className="text-2xl font-extrabold text-gray-900 tracking-tight">Addis Web</span>
         </div>
         <div>
           <Button 
@@ -73,6 +71,7 @@ const Navbar = () => (
 
 const Hero = () => (
   <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gray-50/50">
+    <div data-toc data-toc-title="Hjem" data-toc-depth="1" id="hjem" className="absolute top-0"></div>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <motion.div 
@@ -141,7 +140,7 @@ const Process = () => (
   <section id="prosess" className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Slik fungerer det</h2>
+        <h2 data-toc data-toc-title="Prosess" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Slik fungerer det</h2>
         <p className="text-lg text-gray-600">En enkel, smertefri og risikofri prosess for å få din drømmenettside.</p>
       </div>
       
@@ -197,7 +196,7 @@ const Services = () => (
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">Nettsider skreddersydd for din bransje.</h2>
+          <h2 data-toc data-toc-title="Hvem vi hjelper" data-toc-depth="1" className="text-3xl md:text-5xl font-bold mb-6 leading-tight">Nettsider skreddersydd for din bransje.</h2>
           <p className="text-xl text-gray-400 mb-8">Vi forstår at en frisørsalong har andre behov enn et rørleggerfirma. Derfor designer vi alltid med din spesifikke målgruppe i tankene.</p>
           
           <ul className="space-y-6">
@@ -245,11 +244,11 @@ const Portfolio = () => {
   );
 
   const projects = [
-    { name: "Jakobsen Rør", url: "https://jakobsenror.no/" },
-    { name: "Loqui Events", url: "https://www.loquievents.no/" },
-    { name: "Lume Wellness", url: "https://www.lumewellness.no/" },
-    { name: "Norsk Frøhandel", url: "https://norskfrohandel.vercel.app/" },
-    { name: "Companion Agent", url: "https://www.companionagent.no/" }
+    { name: "Jakobsen Rør", owner: "Morten Jakobsen", url: "https://jakobsenror.no/", fallback: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80" },
+    { name: "Loqui Events", owner: "Sandra", url: "https://www.loquievents.no/", fallback: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80" },
+    { name: "Lume Wellness", url: "https://www.lumewellness.no/", fallback: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80" },
+    { name: "Norsk Frøhandel", url: "https://norskfrohandel.vercel.app/", fallback: "https://images.unsplash.com/photo-1585320806297-9794b3e4ce88?auto=format&fit=crop&w=800&q=80" },
+    { name: "Companion Agent", url: "https://www.companionagent.no/", fallback: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=800&q=80" }
   ];
 
   return (
@@ -257,7 +256,7 @@ const Portfolio = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
+            <h2 data-toc data-toc-title="Portefølje" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
             <p className="text-lg text-gray-600">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
           </motion.div>
         </div>
@@ -290,7 +289,8 @@ const Portfolio = () => {
                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                          e.target.onerror = null;
+                          e.target.src = project.fallback;
                         }}
                       />
                       <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
@@ -298,6 +298,7 @@ const Portfolio = () => {
                     <div className="p-6 flex items-center justify-between">
                       <div>
                         <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
+                        {project.owner && <p className="text-xs font-medium text-gray-400 mt-0.5">Eies av {project.owner}</p>}
                         <p className="text-sm text-gray-500 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
                       </div>
                       <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-colors">
@@ -320,21 +321,21 @@ const Portfolio = () => {
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Jørgen Jakobsen",
-      role: "Daglig leder, Jakobsen Rør",
+      name: "Morten Jakobsen",
+      role: "Eier, Jakobsen Rør",
       content: "Addis Web leverte langt over forventning. Nettsiden vår ser utrolig profesjonell ut, og vi har allerede fått flere henvendelser via kontaktskjemaet. Anbefales på det sterkeste!",
+      rating: 5
+    },
+    {
+      name: "Sandra",
+      role: "Eier, Loqui Events",
+      content: "Vi hadde null peiling på nettsider, men fikk god veiledning hele veien. Resultatet ble et lekkert og moderne design som virkelig representerer merkevaren vår.",
       rating: 5
     },
     {
       name: "Sara L.",
       role: "Eier, Lume Wellness",
       content: "Jeg trengte en stilren nettside for salongen min som også gjorde booking enkelt. Natnael forstod nøyaktig hva jeg var ute etter. Utrolig smidig prosess og null stress for meg.",
-      rating: 5
-    },
-    {
-      name: "Emilie R.",
-      role: "Loqui Events",
-      content: "Vi hadde null peiling på nettsider, men fikk god veiledning hele veien. Resultatet ble et lekkert og moderne design som virkelig representerer merkevaren vår. Veldig fornøyd med risk-free modellen!",
       rating: 5
     }
   ];
@@ -344,7 +345,7 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Hva kundene våre sier</h2>
+            <h2 data-toc data-toc-title="Referanser" data-toc-depth="1" className="text-3xl md:text-4xl font-bold mb-4">Hva kundene våre sier</h2>
             <p className="text-lg text-gray-400">Vi er stolte av å bygge løsninger som skaper ekte verdi for våre kunder.</p>
           </motion.div>
         </div>
@@ -410,7 +411,7 @@ const About = () => (
           <div className="inline-flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full text-sm font-medium text-gray-600 mb-6 border border-gray-200">
             <span>Personlig oppfølging</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h2 data-toc data-toc-title="Om Meg" data-toc-depth="1" className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Hei, jeg er Natnael.
           </h2>
           <div className="space-y-6 text-lg text-gray-600">
@@ -447,7 +448,7 @@ const FaqSection = () => (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
+          <h2 data-toc data-toc-title="FAQ" data-toc-depth="1" className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
           <p className="text-lg text-gray-600">Svar på det meste du lurer på rundt vår risikofrie modell.</p>
         </motion.div>
       </div>
@@ -517,7 +518,12 @@ const Footer = () => (
       </motion.div>
       
       <div className="border-t border-gray-800 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-        <div className="font-bold text-xl text-white mb-4 md:mb-0">Addis Web</div>
+        <div className="font-bold text-xl text-white mb-4 md:mb-0 flex items-center gap-2 justify-center">
+          <div className="bg-white/10 p-1.5 rounded-lg">
+            <Layout className="w-4 h-4 text-white" />
+          </div>
+          Addis Web
+        </div>
         <div className="flex items-center gap-2">
           <Mail className="w-4 h-4" />
           <a href="mailto:natnael@addisweb.no" className="hover:text-white transition-colors">
@@ -535,6 +541,7 @@ const Footer = () => (
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white selection:bg-gray-900 selection:text-white font-sans">
+      <DynamicIslandTOC />
       <Navbar />
       <main>
         <Hero />
