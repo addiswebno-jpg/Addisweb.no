@@ -60,8 +60,8 @@ const Navbar = () => (
         <div>
           <Button 
             className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-5 sm:px-6 shadow-sm"
-            data-cal-namespace="netttside-utvikling-demo"
-            data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+            data-cal-namespace="nettsidedemo"
+            data-cal-link="addis-web-xuv9hn/nettsidedemo"
             data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
           >
             <span className="hidden sm:inline">Book en samtale</span>
@@ -100,8 +100,8 @@ const Hero = () => (
           <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              data-cal-namespace="netttside-utvikling-demo"
-              data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+              data-cal-namespace="nettsidedemo"
+              data-cal-link="addis-web-xuv9hn/nettsidedemo"
               data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               className="relative overflow-hidden bg-gray-900 hover:bg-gray-800 text-white rounded-full h-14 px-8 text-base shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2 group w-full sm:w-auto border-2 border-gray-900"
             >
@@ -160,8 +160,8 @@ const Process = () => (
   <section id="prosess" className="py-24 bg-white relative">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 data-toc data-toc-title="Prosess" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Veien til din nye nettside</h2>
-        <p className="text-lg text-gray-600 px-4">En enkel, smertefri og risikofri prosess for å få nettsiden som skaffer deg flere kunder.</p>
+        <h2 data-toc data-toc-title="Prosess" data-toc-depth="1" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Slik skaffer vi deg flere kunder på 3 enkle steg</h2>
+        <p className="text-lg text-gray-600 px-4">En smertefri og risikofri prosess for å få nettsiden som løfter bedriften din.</p>
       </div>
       
       <div className="grid md:grid-cols-3 gap-8">
@@ -546,8 +546,8 @@ const Footer = () => (
         </p>
         <Button 
           size="lg" 
-          data-cal-namespace="netttside-utvikling-demo"
-          data-cal-link="natnael-seifo-uhknjq/netttside-utvikling-demo"
+          data-cal-namespace="nettsidedemo"
+          data-cal-link="addis-web-xuv9hn/nettsidedemo"
           data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
           className="relative overflow-hidden bg-white hover:bg-gray-100 text-gray-900 rounded-full h-14 px-10 text-lg font-bold shadow-xl mb-12 hover:scale-105 transition-transform group"
         >
@@ -580,7 +580,7 @@ const LandingPage = () => {
   useEffect(() => {
     (async function () {
       try {
-        const cal = await getCalApi({"namespace":"netttside-utvikling-demo"});
+        const cal = await getCalApi({"namespace":"nettsidedemo"});
         cal("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#111827"},"dark":{"cal-brand":"#FFFFFF"}},"hideEventTypeDetails":false,"layout":"month_view"});
       } catch (e) {
         console.error("Failed to load Cal embed:", e);
