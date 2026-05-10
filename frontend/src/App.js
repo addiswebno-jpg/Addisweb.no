@@ -1,0 +1,392 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { motion } from "framer-motion";
+import { 
+  ArrowRight, 
+  CheckCircle2, 
+  Code, 
+  MonitorSmartphone, 
+  Paintbrush, 
+  Scissors, 
+  Wrench,
+  ChevronDown,
+  Mail
+} from "lucide-react";
+import { Button } from "./components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./components/ui/accordion";
+
+const CAL_URL = "https://cal.com/natnael-seifo-uhknjq/netttside-utvikling-demo";
+
+const fadeIn = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const Navbar = () => (
+  <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center h-20">
+        <div className="flex-shrink-0 flex items-center">
+          <span className="text-2xl font-bold text-gray-900 tracking-tight">Addis Web</span>
+        </div>
+        <div className="hidden md:flex space-x-8 items-center">
+          <a href="#prosess" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Prosess</a>
+          <a href="#tjenester" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Hvem vi hjelper</a>
+          <a href="#portefolje" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Portefølje</a>
+          <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">FAQ</a>
+        </div>
+        <div>
+          <Button 
+            onClick={() => window.open(CAL_URL, "_blank")}
+            className="bg-gray-900 hover:bg-gray-800 text-white rounded-full px-6 shadow-sm"
+          >
+            Book en samtale
+          </Button>
+        </div>
+      </div>
+    </div>
+  </nav>
+);
+
+const Hero = () => (
+  <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gray-50/50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="max-w-2xl"
+        >
+          <motion.div variants={fadeIn} className="inline-flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full text-sm font-medium text-gray-800 mb-6 border border-gray-200">
+            <span className="flex h-2 w-2 rounded-full bg-green-500"></span>
+            <span>Tar inn 3 nye prosjekter denne måneden</span>
+          </motion.div>
+          
+          <motion.h1 variants={fadeIn} className="text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+            Vi bygger din nye nettside <span className="text-gray-400">helt gratis.</span>
+          </motion.h1>
+          
+          <motion.p variants={fadeIn} className="text-xl text-gray-600 mb-8 leading-relaxed">
+            En 100 % risikofri løsning. Liker du ikke resultatet? Da betaler du ingenting. Liker du den? Betal en engangssum på <strong className="text-gray-900 font-semibold">10 000 kr</strong> – og nettsiden er din.
+          </motion.p>
+          
+          <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
+            <Button 
+              size="lg" 
+              onClick={() => window.open(CAL_URL, "_blank")}
+              className="bg-gray-900 hover:bg-gray-800 text-white rounded-full h-14 px-8 text-base shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group"
+            >
+              Få din gratis skisse
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => document.getElementById("portefolje")?.scrollIntoView({ behavior: 'smooth' })}
+              className="rounded-full h-14 px-8 text-base border-gray-300 hover:bg-gray-50"
+            >
+              Se vårt arbeid
+            </Button>
+          </motion.div>
+          
+          <motion.div variants={fadeIn} className="mt-8 flex items-center gap-4 text-sm text-gray-500 font-medium">
+            <div className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen bindingstid</div>
+            <div className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> Ingen skjulte kostnader</div>
+          </motion.div>
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative lg:h-[600px] flex items-center justify-center"
+        >
+          <div className="absolute inset-0 bg-gradient-to-tr from-gray-100 to-gray-50 rounded-3xl transform -rotate-3 border border-gray-200"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1549399905-5d1bad747576?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzc4NDE0OTg0fDA&ixlib=rb-4.1.0&q=85" 
+            alt="Modern Web Design Workspace" 
+            className="relative z-10 rounded-2xl shadow-2xl object-cover h-[500px] w-full max-w-lg mx-auto transform hover:scale-[1.02] transition-transform duration-500"
+          />
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
+
+const Process = () => (
+  <section id="prosess" className="py-24 bg-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Slik fungerer det</h2>
+        <p className="text-lg text-gray-600">En enkel, smertefri og risikofri prosess for å få din drømmenettside.</p>
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            step: "01",
+            title: "Gratis Designutkast",
+            desc: "Vi tar en kort prat om dine behov. Deretter begynner vi å designe nettsiden din – helt gratis og uten forpliktelser.",
+            icon: <Paintbrush className="w-6 h-6 text-gray-900" />
+          },
+          {
+            step: "02",
+            title: "Gjennomgang",
+            desc: "Innen 1-2 uker presenterer vi den ferdige nettsiden. Du får se nøyaktig hvordan den ser ut og fungerer i praksis.",
+            icon: <MonitorSmartphone className="w-6 h-6 text-gray-900" />
+          },
+          {
+            step: "03",
+            title: "Betal kun hvis du elsker den",
+            desc: "Er du 100 % fornøyd? Da betaler du 10 000 kr, og vi lanserer nettsiden for deg. Liker du den ikke, betaler du null.",
+            icon: <CheckCircle2 className="w-6 h-6 text-gray-900" />
+          }
+        ].map((item, i) => (
+          <motion.div 
+            key={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="relative p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
+          >
+            <div className="text-5xl font-extrabold text-gray-200 mb-6">{item.step}</div>
+            <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 border border-gray-100">
+              {item.icon}
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+            <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Services = () => (
+  <section id="tjenester" className="py-24 bg-gray-900 text-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">Nettsider skreddersydd for din bransje.</h2>
+          <p className="text-xl text-gray-400 mb-8">Vi forstår at en frisørsalong har andre behov enn et rørleggerfirma. Derfor designer vi alltid med din spesifikke målgruppe i tankene.</p>
+          
+          <ul className="space-y-6">
+            <li className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                <Scissors className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold mb-1">Salonger & Velvære</h4>
+                <p className="text-gray-400">Vis frem porteføljen din og gjør det superenkelt for kunder å finne booking-lenken din.</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                <Wrench className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold mb-1">Rørleggere & Håndverkere</h4>
+                <p className="text-gray-400">Bygg tillit lokalt med en profesjonell nettside som fremhever dine tjenester og referanser.</p>
+              </div>
+            </li>
+          </ul>
+        </motion.div>
+        
+        <div className="grid grid-cols-2 gap-4">
+          <img 
+            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxzYWxvbiUyMGludGVyaW9yfGVufDB8fHx8MTc3ODM5NTQzOHww&ixlib=rb-4.1.0&q=85" 
+            alt="Moderne Salong" 
+            className="rounded-2xl h-64 w-full object-cover transform translate-y-8"
+          />
+          <img 
+            src="https://images.unsplash.com/photo-1659353588229-6870b3b25800?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBwbHVtYmVyfGVufDB8fHx8MTc3ODQxNDk4NHww&ixlib=rb-4.1.0&q=85" 
+            alt="Profesjonell Håndverker" 
+            className="rounded-2xl h-64 w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const Portfolio = () => {
+  const projects = [
+    { name: "Jakobsen Rør", url: "https://jakobsenror.no/" },
+    { name: "Loqui Events", url: "https://www.loquievents.no/" },
+    { name: "Lume Wellness", url: "https://www.lumewellness.no/" },
+    { name: "Norsk Frøhandel", url: "https://norskfrohandel.vercel.app/" },
+    { name: "Companion Agent", url: "https://www.companionagent.no/" }
+  ];
+
+  return (
+    <section id="portefolje" className="py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
+          <p className="text-lg text-gray-600">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, idx) => (
+            <motion.a 
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={idx}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="group block rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="h-60 overflow-hidden relative bg-gray-100">
+                <img 
+                  src={`https://image.thum.io/get/width/800/crop/800/${project.url}`} 
+                  alt={project.name}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
+              </div>
+              <div className="p-6 flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
+                  <p className="text-sm text-gray-500 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FaqSection = () => (
+  <section id="faq" className="py-24 bg-white">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
+      </div>
+      
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="item-1" className="border-b border-gray-200 py-2">
+          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+            Hva skjer hvis jeg ikke liker nettsiden?
+          </AccordionTrigger>
+          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+            Da betaler du absolutt ingenting. Dette er hele poenget med vårt tilbud – du har ingen forpliktelser før du godkjenner resultatet. Vi bygger siden gratis for å bevise at vi kan levere kvalitet.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2" className="border-b border-gray-200 py-2">
+          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+            Er det noen skjulte kostnader?
+          </AccordionTrigger>
+          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+            Nei. Prisen er 10 000 kr. Dette er en engangskostnad for selve designet og utviklingen. Du må kun dekke standardkostnader for ditt eget domene og webhotell (som oftest 100-200 kr i måneden), som du eier 100 % selv.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3" className="border-b border-gray-200 py-2">
+          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+            Hvor lang tid tar det?
+          </AccordionTrigger>
+          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+            Normalt tar det 1-2 uker fra vi starter til vi har et ferdig utkast du kan vurdere. Tiden kan variere litt avhengig av hvor raskt vi får tekst og bilder fra deg.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-4" className="border-b border-gray-200 py-2">
+          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+            Får jeg en nettside som ser bra ut på mobil?
+          </AccordionTrigger>
+          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+            Absolutt. Alle nettsider vi lager er 100 % responsive, noe som betyr at de tilpasser seg automatisk og ser perfekte ut på både mobiltelefoner, nettbrett og datamaskiner.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-gray-950 text-white py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 className="text-3xl md:text-5xl font-bold mb-8">Klar for en ny, profesjonell nettside?</h2>
+      <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+        Book en kort, uforpliktende prat i dag, og la oss begynne på din gratis skisse.
+      </p>
+      <Button 
+        size="lg" 
+        onClick={() => window.open(CAL_URL, "_blank")}
+        className="bg-white hover:bg-gray-100 text-gray-900 rounded-full h-14 px-10 text-lg font-semibold shadow-xl mb-12"
+      >
+        Book din gratis demo
+      </Button>
+      
+      <div className="border-t border-gray-800 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+        <div className="font-bold text-xl text-white mb-4 md:mb-0">Addis Web</div>
+        <div className="flex items-center gap-2">
+          <Mail className="w-4 h-4" />
+          <a href="mailto:natnael@addisweb.no" className="hover:text-white transition-colors">
+            natnael@addisweb.no
+          </a>
+        </div>
+        <div className="mt-4 md:mt-0">
+          &copy; {new Date().getFullYear()} Addis Web. Alle rettigheter reservert.
+        </div>
+      </div>
+    </div>
+  </footer>
+);
+
+const LandingPage = () => {
+  return (
+    <div className="min-h-screen bg-white selection:bg-gray-900 selection:text-white font-sans">
+      <Navbar />
+      <main>
+        <Hero />
+        <Process />
+        <Services />
+        <Portfolio />
+        <FaqSection />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
