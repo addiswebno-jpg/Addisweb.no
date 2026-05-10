@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
+import Autoplay from "embla-carousel-autoplay";
 import { 
   ArrowRight, 
   CheckCircle2, 
-  Code, 
   MonitorSmartphone, 
   Paintbrush, 
   Scissors, 
   Wrench,
-  ChevronDown,
-  Mail
+  Mail,
+  Star
 } from "lucide-react";
 import { Button } from "./components/ui/button";
 import {
@@ -19,16 +19,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./components/ui/accordion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./components/ui/carousel";
 
 const CAL_URL = "https://cal.com/natnael-seifo-uhknjq/netttside-utvikling-demo";
 
 const fadeIn = {
-  hidden: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
 const staggerContainer = {
-  hidden: { opacity: 1 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
@@ -41,7 +48,7 @@ const Navbar = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center h-20">
-        <div className="flex-shrink-0 flex items-center">
+        <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.scrollTo(0,0)}>
           <span className="text-2xl font-bold text-gray-900 tracking-tight">Addis Web</span>
         </div>
         <div className="hidden md:flex space-x-8 items-center">
@@ -113,7 +120,7 @@ const Hero = () => (
         </motion.div>
         
         <motion.div 
-          initial={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative lg:h-[600px] flex items-center justify-center"
@@ -233,6 +240,10 @@ const Services = () => (
 );
 
 const Portfolio = () => {
+  const plugin = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
+
   const projects = [
     { name: "Jakobsen Rør", url: "https://jakobsenror.no/" },
     { name: "Loqui Events", url: "https://www.loquievents.no/" },
@@ -242,39 +253,159 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portefolje" className="py-24 bg-gray-50">
+    <section id="portefolje" className="py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
-          <p className="text-lg text-gray-600">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Se hva vi har bygget</h2>
+            <p className="text-lg text-gray-600">Her er et utvalg av nettsider vi har levert til fornøyde kunder.</p>
+          </motion.div>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+        <div className="relative px-6 md:px-12">
+          <Carousel
+            plugins={[plugin.current]}
+            opts={{ align: "start", loop: true }}
+            className="w-full"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
+            <CarouselContent className="-ml-4">
+              {projects.map((project, idx) => (
+                <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <motion.a 
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeIn}
+                    className="group block rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 h-full"
+                  >
+                    <div className="h-64 overflow-hidden relative bg-gray-100 flex items-center justify-center">
+                      <img 
+                        src={`https://s0.wp.com/mshots/v1/${encodeURIComponent(project.url)}?w=800`} 
+                        alt={project.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
+                    </div>
+                    <div className="p-6 flex items-center justify-between">
+                      <div>
+                        <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
+                        <p className="text-sm text-gray-500 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </motion.a>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex -left-6" />
+            <CarouselNext className="hidden md:flex -right-6" />
+          </Carousel>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Testimonials = () => {
+  const testimonials = [
+    {
+      name: "Jørgen Jakobsen",
+      role: "Daglig leder, Jakobsen Rør",
+      content: "Addis Web leverte langt over forventning. Nettsiden vår ser utrolig profesjonell ut, og vi har allerede fått flere henvendelser via kontaktskjemaet. Anbefales på det sterkeste!",
+      rating: 5
+    },
+    {
+      name: "Sara L.",
+      role: "Eier, Lume Wellness",
+      content: "Jeg trengte en stilren nettside for salongen min som også gjorde booking enkelt. Natnael forstod nøyaktig hva jeg var ute etter. Utrolig smidig prosess og null stress for meg.",
+      rating: 5
+    },
+    {
+      name: "Emilie R.",
+      role: "Loqui Events",
+      content: "Vi hadde null peiling på nettsider, men fikk god veiledning hele veien. Resultatet ble et lekkert og moderne design som virkelig representerer merkevaren vår. Veldig fornøyd med risk-free modellen!",
+      rating: 5
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-gray-900 text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Hva kundene våre sier</h2>
+            <p className="text-lg text-gray-400">Vi er stolte av å bygge løsninger som skaper ekte verdi for våre kunder.</p>
+          </motion.div>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((t, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.15, duration: 0.6 }}
+              className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-sm hover:bg-white/10 transition-colors duration-300"
+            >
+              <div className="flex gap-1 mb-6">
+                {[...Array(t.rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-8 text-lg italic leading-relaxed">"{t.content}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center font-bold text-lg shadow-inner border border-gray-600">
+                  {t.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="font-bold text-white">{t.name}</div>
+                  <div className="text-sm text-gray-400">{t.role}</div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const About = () => (
   <section id="om-meg" className="py-24 bg-white overflow-hidden border-t border-gray-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          variants={fadeIn}
+          transition={{ duration: 0.8 }}
           className="relative"
         >
           <div className="absolute inset-0 bg-gray-100 rounded-3xl transform translate-x-4 translate-y-4"></div>
           <img 
             src="https://customer-assets.emergentagent.com/job_web-portfolio-no/artifacts/zzdngync_Natnael%20profilbilde.jpeg" 
             alt="Natnael Seifo - Grunnlegger av Addis Web" 
-            className="relative z-10 rounded-3xl shadow-xl w-full object-cover max-h-[600px]"
+            className="relative z-10 rounded-3xl shadow-xl w-full object-cover max-h-[600px] hover:scale-[1.02] transition-transform duration-500"
           />
         </motion.div>
         
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          variants={fadeIn}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="inline-flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full text-sm font-medium text-gray-600 mb-6 border border-gray-200">
             <span>Personlig oppfølging</span>
@@ -287,16 +418,16 @@ const About = () => (
               Jeg er grunnleggeren av Addis Web. De siste to årene har jeg spesialisert meg på å bygge skreddersydde, moderne nettsider og nettbutikker for bedrifter som ønsker å skille seg ut på nett.
             </p>
             <p>
-              Min tilnærming er enkel: <strong>Moderne design, null teknisk rot, og fullt fokus på resultater.</strong> Jeg mener at en nettside ikke bare skal se fantastisk ut – den skal være et effektivt verktøy som tiltrekker kunder og skaper vekst for din bedrift.
+              Min tilnærming er enkel: <strong className="text-gray-900">Moderne design, null teknisk rot, og fullt fokus på resultater.</strong> Jeg mener at en nettside ikke bare skal se fantastisk ut – den skal være et effektivt verktøy som tiltrekker kunder og skaper vekst for din bedrift.
             </p>
             <p>
-              Som din dedikerte partner, håndterer jeg hele prosessen fra første skisse til lansering. Målet mitt er å gjøre det så enkelt og smertefritt som mulig for deg å få en premium tilstedeværelse på nett.
+              Som din dedikerte partner håndterer jeg hele prosessen fra første skisse til lansering. Målet mitt er å gjøre det så enkelt og smertefritt som mulig for deg å få en premium tilstedeværelse på nett.
             </p>
           </div>
           
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
-             <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold text-xl">
+             <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-white font-bold text-xl shadow-md">
                   N
                 </div>
                 <div>
@@ -311,102 +442,79 @@ const About = () => (
   </section>
 );
 
-            <motion.a 
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={idx}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              className="group block rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="h-60 overflow-hidden relative bg-gray-100">
-                <img 
-                  src={`https://image.thum.io/get/width/800/crop/800/${project.url}`} 
-                  alt={project.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
-              </div>
-              <div className="p-6 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
-                  <p className="text-sm text-gray-500 truncate mt-1">{project.url.replace("https://", "").replace("www.", "").replace("/", "")}</p>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-colors">
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const FaqSection = () => (
-  <section id="faq" className="py-24 bg-white">
+  <section id="faq" className="py-24 bg-gray-50 border-t border-gray-100">
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ofte stilte spørsmål</h2>
+          <p className="text-lg text-gray-600">Svar på det meste du lurer på rundt vår risikofrie modell.</p>
+        </motion.div>
       </div>
       
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1" className="border-b border-gray-200 py-2">
-          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
-            Hva skjer hvis jeg ikke liker nettsiden?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
-            Da betaler du absolutt ingenting. Dette er hele poenget med vårt tilbud – du har ingen forpliktelser før du godkjenner resultatet. Vi bygger siden gratis for å bevise at vi kan levere kvalitet.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2" className="border-b border-gray-200 py-2">
-          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
-            Er det noen skjulte kostnader?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
-            Nei. Prisen er 10 000 kr. Dette er en engangskostnad for selve designet og utviklingen. Du må kun dekke standardkostnader for ditt eget domene og webhotell (som oftest 100-200 kr i måneden), som du eier 100 % selv.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3" className="border-b border-gray-200 py-2">
-          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
-            Hvor lang tid tar det?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
-            Normalt tar det 1-2 uker fra vi starter til vi har et ferdig utkast du kan vurdere. Tiden kan variere litt avhengig av hvor raskt vi får tekst og bilder fra deg.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-4" className="border-b border-gray-200 py-2">
-          <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
-            Får jeg en nettside som ser bra ut på mobil?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
-            Absolutt. Alle nettsider vi lager er 100 % responsive, noe som betyr at de tilpasser seg automatisk og ser perfekte ut på både mobiltelefoner, nettbrett og datamaskiner.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeIn}
+        className="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-gray-100"
+      >
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1" className="border-b border-gray-100 py-2">
+            <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+              Hva skjer hvis jeg ikke liker nettsiden?
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+              Da betaler du absolutt ingenting. Dette er hele poenget med vårt tilbud – du har ingen forpliktelser før du godkjenner resultatet. Vi bygger siden gratis for å bevise at vi kan levere kvalitet.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2" className="border-b border-gray-100 py-2">
+            <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+              Er det noen skjulte kostnader?
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+              Nei. Prisen er 10 000 kr. Dette er en engangskostnad for selve designet og utviklingen. Du må kun dekke standardkostnader for ditt eget domene og webhotell (som oftest 100-200 kr i måneden), som du eier 100 % selv.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3" className="border-b border-gray-100 py-2">
+            <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+              Hvor lang tid tar det?
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+              Normalt tar det 1-2 uker fra vi starter til vi har et ferdig utkast du kan vurdere. Tiden kan variere litt avhengig av hvor raskt vi får tekst og bilder fra deg.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4" className="border-b-0 py-2">
+            <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 hover:no-underline hover:text-gray-600 transition-colors">
+              Får jeg en nettside som ser bra ut på mobil?
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-600 text-base leading-relaxed pt-2">
+              Absolutt. Alle nettsider vi lager er 100 % responsive, noe som betyr at de tilpasser seg automatisk og ser perfekte ut på både mobiltelefoner, nettbrett og datamaskiner.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </motion.div>
     </div>
   </section>
 );
 
 const Footer = () => (
-  <footer className="bg-gray-950 text-white py-20">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 className="text-3xl md:text-5xl font-bold mb-8">Klar for en ny, profesjonell nettside?</h2>
-      <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
-        Book en kort, uforpliktende prat i dag, og la oss begynne på din gratis skisse.
-      </p>
-      <Button 
-        size="lg" 
-        onClick={() => window.open(CAL_URL, "_blank")}
-        className="bg-white hover:bg-gray-100 text-gray-900 rounded-full h-14 px-10 text-lg font-semibold shadow-xl mb-12"
-      >
-        Book din gratis demo
-      </Button>
+  <footer className="bg-gray-950 text-white py-20 relative overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+        <h2 className="text-3xl md:text-5xl font-bold mb-8">Klar for en ny, profesjonell nettside?</h2>
+        <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+          Book en kort, uforpliktende prat i dag, og la oss begynne på din gratis skisse.
+        </p>
+        <Button 
+          size="lg" 
+          onClick={() => window.open(CAL_URL, "_blank")}
+          className="bg-white hover:bg-gray-100 text-gray-900 rounded-full h-14 px-10 text-lg font-semibold shadow-xl mb-12 hover:scale-105 transition-transform"
+        >
+          Book din gratis demo
+        </Button>
+      </motion.div>
       
       <div className="border-t border-gray-800 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
         <div className="font-bold text-xl text-white mb-4 md:mb-0">Addis Web</div>
@@ -433,6 +541,7 @@ const LandingPage = () => {
         <Process />
         <Services />
         <Portfolio />
+        <Testimonials />
         <About />
         <FaqSection />
       </main>
