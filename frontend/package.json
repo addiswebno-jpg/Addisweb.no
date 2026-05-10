@@ -95,6 +95,11 @@
     "node": "22.x"
   },
   "overrides": {
-    "ajv": "^8"
+    "ajv": "^8",
+    "ajv-keywords": "^5.1.0"
+  },
+  "resolutions": {
+    "ajv": "^8",
+    "ajv-keywords": "^5.1.0"
   }
 }
